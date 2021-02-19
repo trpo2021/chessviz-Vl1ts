@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 const int BoardLineSize=8;
 
 typedef enum {    
@@ -15,12 +17,12 @@ typedef enum {
     BBishop = 'b',
     BPawn = 'p',
     
-    Empty = ' ',
+    EmptyZone = ' ',
 } Figures;
 
 void CreateBoard()
 {
-	Figures Board[8][8];
+	Figures Board[8][8];	
 	
 	Board[7][0]=WRook;
 	Board[7][1]=WKnight;
@@ -43,14 +45,30 @@ void CreateBoard()
 	for (int i=0; i<BoardLineSize; ++i)
 	{
 		Board[6][i]=WPawn;
-		Board[1][i]-BPawn;
+		Board[1][i]=BPawn;
 	}
-	for (int i=2; i<BoardLineSize-3; ++i)
+	for (int i=2; i<BoardLineSize-2; ++i)
 		for (int j=0; j<BoardLineSize; ++j)
-			Board[i][j]=Empty;
+			Board[i][j]=EmptyZone;
+}
+
+void PrintBoard(Figures Board)
+{
+	int LineNumber=8;
+	for (int i=0; i<BoardLineSize; ++i)
+	{
+		printf("%d", LineNumber);
+		LineNumber--;
+		for (int j=0; j<BoardLineSize; ++j)
+			printf(" %c", Board[i][j]);
+		printf("\n");
+	}
+	printf("  a b c d e f g h\n");
 }
 
 int main() 
 {
-
+	Figures Board;
+	CreateBoard();
+	PrintBoard(Board);
 }
